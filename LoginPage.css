@@ -1,0 +1,38 @@
+/* Container to center the form and add a background */
+.container {
+  @apply flex justify-center items-center min-h-screen bg-gray-100;
+}
+
+/* Styling the login form */
+.login-form {
+  @apply bg-white p-8 rounded-lg shadow-xl w-full max-w-sm;
+}
+
+/* Title style */
+.login-title {
+  @apply text-3xl font-semibold text-center text-gray-800 mb-6;
+}
+
+/* Form input field style */
+.input-field {
+  @apply w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+/* Button Style */
+.login-button {
+  @apply w-full py-3 bg-blue-600 text-white rounded-lg text-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500;
+}
+
+/* Style for error messages */
+.error-message {
+  @apply text-red-600 text-sm text-center mb-4;
+}
+
+/* Sign up text link style */
+.signup-link {
+  @apply text-center text-sm mt-4;
+}
+
+.signup-link a {
+  @apply text-blue-600 hover:underline;
+}
