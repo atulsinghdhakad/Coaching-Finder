@@ -1,0 +1,15 @@
+.home-page {
+  text-align: center;
+  padding: 50px;
+  background-color: #f0f0f0;
+}
+
+.home-page h1 {
+  font-size: 3rem;
+  color: #2575fc;
+}
+
+.home-page p {
+  font-size: 1.2rem;
+  color: #555;
+}
