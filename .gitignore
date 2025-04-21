@@ -47,3 +47,4 @@ __MACOSX/
 
 # Optional: test coverage
 coverage/
+node_modules/
