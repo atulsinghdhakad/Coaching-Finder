@@ -9,6 +9,7 @@ import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import './App.css'; // Ensure global styles
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import DataDeletionPage from './pages/DataDeletionPage';
 
 
 const App = () => {
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/data-deletion" element={<DataDeletionPage />} />
         </Routes>
       </div>
     </Router>

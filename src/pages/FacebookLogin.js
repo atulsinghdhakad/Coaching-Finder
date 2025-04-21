@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
 import { signInWithPopup, FacebookAuthProvider } from 'firebase/auth';
-import { auth } from '../firebase'; // Adjust the path to your Firebase configuration file
+import { auth } from '../firebase'; // Make sure the path is correct
 
 const FacebookLogin = () => {
   useEffect(() => {
-    // Load Facebook SDK
+    // Load Facebook SDK only once
     const loadFBSDK = () => {
-      if (window.FB) return;
+      if (window.FB) return; // If FB is already loaded, do nothing
 
       window.fbAsyncInit = function () {
         window.FB.init({
-          appId: '3893553884230560', // 🔁 Replace with your Facebook App ID
+          appId: '3893553884230560',  // Replace with your Facebook App ID
           cookie: true,
           xfbml: true,
           version: 'v18.0',
         });
+        console.log("Facebook SDK initialized");
       };
 
       const script = document.createElement('script');
@@ -22,49 +23,24 @@ const FacebookLogin = () => {
       script.async = true;
       script.defer = true;
       document.body.appendChild(script);
-
-      return () => {
-        document.body.removeChild(script);
-      };
     };
 
     loadFBSDK();
-  }, []);
-
-  // const handleFacebookLogin = () => {
-  //   if (!window.FB) return;
-
-  //   window.FB.login(
-  //     (response) => {
-  //       if (response.authResponse) {
-  //         console.log('✅ Logged in:', response);
-  //         fetchFacebookUserData();
-  //       } else {
-  //         console.log('❌ User cancelled login or did not authorize.');
-  //       }
-  //     },
-  //     { scope: 'public_profile,email' }
-  //   );
-  // };
+  }, []); // Empty dependency array ensures the SDK is loaded only once
 
   const handleFacebookLogin = async () => {
     try {
+      // Using the Facebook provider for sign-in
       const provider = new FacebookAuthProvider();
       const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      console.log(user);
-      // Additional logic for the user
-    } catch (error) {
-      console.error('Facebook login error:', error);
-    }
-  };
-  
 
-  const fetchFacebookUserData = () => {
-    window.FB.api('/me', { fields: 'id,name,first_name,email' }, function (response) {
-      console.log('📄 Facebook User Data:', response);
-      alert(`Welcome, ${response.name}!`);
-    });
+      const user = result.user;
+      console.log('Logged in with Facebook:', user);
+      // Additional logic for the logged-in user
+    } catch (error) {
+      console.error('Facebook login error:', error.message);
+      alert('Failed to sign in with Facebook');
+    }
   };
 
   return (

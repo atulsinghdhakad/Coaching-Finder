@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// import { FacebookAuthProvider } from "firebase/auth";
 import { auth, googleProvider, facebookProvider } from '../firebase';
 import {
   signInWithEmailAndPassword,
@@ -66,25 +67,39 @@ const LoginPage = () => {
       setMessage('Facebook SDK not loaded.');
       return;
     }
-
-    window.FB.login(
-      async (response) => {
-        if (response.authResponse) {
-          try {
-            await signInWithPopup(auth, facebookProvider);
-            navigate('/');
-          } catch (error) {
-            console.error(error);
-            setMessage('Failed to sign in with Facebook.');
-          }
-        } else {
-          setMessage('Facebook login cancelled.');
-        }
-      },
-      { scope: 'email' }
-    );
+  
+    window.FB.login((response) => {
+      if (response.authResponse) {
+        handleFirebaseFacebookLogin();
+      } else {
+        setMessage('Facebook login cancelled.');
+      }
+    }, { scope: 'email' });
   };
+  
+  // const handleFirebaseFacebookLogin = async () => {
+  //   try {
+  //     await signInWithPopup(auth, facebookProvider);
+  //     navigate('/');
+  //   } catch (error) {
+  //     console.error(error);
+  //     setMessage('Failed to sign in with Facebook.');
+  //   }
+  // };
 
+  const handleFirebaseFacebookLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, facebookProvider);
+      const user = result.user;
+      console.log("Signed in with Facebook:", user);
+    } catch (error) {
+      console.error("Failed to sign in with Facebook:", error);
+      if (error.code === 'auth/account-exists-with-different-credential') {
+        alert("An account already exists with a different sign-in method.");
+      }
+    }
+  };
+  
   const handleForgotPassword = async () => {
     try {
       await sendPasswordResetEmail(auth, email);
