@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";  // Correct the path if needed
 import Navbar from "./components/Navbar"; // Correct the path if needed
 import Footer from "./components/Footer"; // Correct the path if needed
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 
 
